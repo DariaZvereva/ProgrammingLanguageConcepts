@@ -45,3 +45,9 @@ class Linq:
 
     def to_list(self):
         return list(self.iterable)
+
+    def next(self):
+        return self.iterable.next()
+
+    def __iter__(self):
+        return self.iterable.__iter__()
