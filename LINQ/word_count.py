@@ -13,8 +13,8 @@ def main():
                     .group_by(lambda word: word)
                     .select(lambda item: (item[0], len(item[1])))
                     .order_by(lambda item: -item[1])
-                    .select(lambda item: item[0]+": "+str(item[1]))
                     .take(N)
+                    .select(lambda item: item[0]+": "+str(item[1]))
                     .to_list())
             )
 
