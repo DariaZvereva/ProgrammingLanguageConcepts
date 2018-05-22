@@ -3,6 +3,15 @@
 #include <mutex>
 #include <condition_variable>
 #include <exception>
+#include <iostream>
+
+struct ResetPromiseValueException : public std::exception
+{
+    const char* what() const throw ()
+    {
+        return "You have already set value";
+    }
+};
 
 
 template<typename T>
@@ -44,6 +53,10 @@ public:
     void SetValue(const T& val)
     {
         std::lock_guard<std::mutex> lock(critical);
+        //std::cout << "QEQEQ" << std::endl;
+        if(value != nullptr || exception != nullptr) {
+            throw ResetPromiseValueException {};
+        }
         value = std::move(std::make_unique<T>(val));
         cv.notify_all();
     };
