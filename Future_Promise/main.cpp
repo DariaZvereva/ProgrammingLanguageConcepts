@@ -53,8 +53,6 @@ void Test2() {
     thread2.join();
 }
 
-
-
 int main()
 {
     Test1();

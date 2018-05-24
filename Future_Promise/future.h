@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "state.h"
+#include <functional>
 
 template <typename T>
 class Future {
@@ -24,6 +25,11 @@ public:
         }
         value = *current;
         return true;
+    };
+
+    template <typename R>
+    Future<R> Then(std::function<R(const T&)> task) { 
+        return Future<R>(std::make_shared<ChainState<T,R>>(*this, task));
     };
 
 private:
